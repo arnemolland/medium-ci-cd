@@ -13,7 +13,7 @@ matrix:
     - tar xvf secrets.tar
     - git clone https://github.com/flutter/flutter.git -b stable
     - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-    - cd android && bundle install
+    - gem install bundler && cd android && bundle install
     script:
     - flutter packages get
     - flutter test
@@ -30,4 +30,4 @@ matrix:
     script:
     - flutter packages get
     - flutter test
-    - cd ios && bundle exec fastlane internal
+    - gem install bundler && cd ios && bundle exec fastlane internal
