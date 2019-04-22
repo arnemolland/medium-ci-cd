@@ -1,7 +1,27 @@
-language: generic
-before_script:
-  - git clone https://github.com/flutter/flutter.git -b stable
-  - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
-script:
-  - flutter packages get
-  - flutter test
+matrix:
+  include:
+  - name: Android Build
+    language: android
+    jdk: openjdk8
+    android:
+      components:
+        - build-tools-28.0.3
+        - android-28
+    before_script:
+      - git clone https://github.com/flutter/flutter.git -b stable
+      - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+    script:
+      - flutter packages get
+      - flutter test
+      - flutter build apk
+  - name: iOS Build
+    os: osx
+    language: generic
+    osx_image: xcode10.2
+    before_script:
+      - git clone https://github.com/flutter/flutter.git -b stable
+      - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+    script:
+      - flutter packages get
+      - flutter test
+      - flutter build ios --no-codesign
