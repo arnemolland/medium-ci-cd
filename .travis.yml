@@ -13,6 +13,7 @@ matrix:
     - tar xvf secrets.tar
     - git clone https://github.com/flutter/flutter.git -b stable
     - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+    - cd android && bundle install
     script:
     - flutter packages get
     - flutter test
@@ -25,6 +26,7 @@ matrix:
     before_script:
     - git clone https://github.com/flutter/flutter.git -b stable
     - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+    - cd ios && bundle install
     script:
     - flutter packages get
     - flutter test
