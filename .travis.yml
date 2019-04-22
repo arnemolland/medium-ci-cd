@@ -5,23 +5,27 @@ matrix:
     jdk: openjdk8
     android:
       components:
-        - build-tools-28.0.3
-        - android-28
+      - build-tools-28.0.3
+      - android-28
     before_script:
-      - git clone https://github.com/flutter/flutter.git -b stable
-      - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+    - openssl aes-256-cbc -K $encrypted_e52ce8830a54_key -iv $encrypted_e52ce8830a54_iv
+      -in secrets.tar.enc -out secrets.tar -d
+    - tar xvf secrets.tar
+    - git clone https://github.com/flutter/flutter.git -b stable
+    - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
     script:
-      - flutter packages get
-      - flutter test
-      - flutter build apk
+    - flutter packages get
+    - flutter test
+    - flutter build apk
+    - cd android && bundle exec fastlane internal
   - name: iOS Build
     os: osx
     language: generic
     osx_image: xcode10.2
     before_script:
-      - git clone https://github.com/flutter/flutter.git -b stable
-      - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
+    - git clone https://github.com/flutter/flutter.git -b stable
+    - export PATH=`pwd`/flutter/bin:`pwd`/flutter/bin/cache/dart-sdk/bin:$PATH
     script:
-      - flutter packages get
-      - flutter test
-      - flutter build ios --no-codesign
+    - flutter packages get
+    - flutter test
+    - cd ios && bundle exec fastlane internal

@@ -1,23 +1,25 @@
-# This file contains the fastlane.tools configuration
-# You can find the documentation at https://docs.fastlane.tools
-#
-# For a list of all available actions, check out
-#
-#     https://docs.fastlane.tools/actions
-#
-# For a list of all available plugins, check out
-#
-#     https://docs.fastlane.tools/plugins/available-plugins
-#
-
-# Uncomment the line if you want fastlane to automatically update itself
-# update_fastlane
-
+# set up keychain and match
+setup_travis
 default_platform(:ios)
+platform :ios do 
 
-platform :ios do
-  desc "Description of what the lane does"
-  lane :custom_lane do
-    # add actions here: https://docs.fastlane.tools/actions
+  desc "Submit an internal beta to TestFlight"
+  lane :internal do
+    # build the binary
+    gym(
+      scheme: 'Release',
+      export_method: 'app-store',
+      export_options: { compileBitcode: false},
+      output_directory: './build',
+      output_name: 'app-beta'
+    )
+    # submit to TestFlight
+    pilot(
+      ipa: './build/app-beta.ipa',
+      app_identifier: 'your.bundle.identifier',
+      distribute_external: false,
+      skip_submission: true,
+      apple_id: 'your-app-id'
+    )
   end
 end
