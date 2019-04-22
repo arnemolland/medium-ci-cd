@@ -1,0 +1,3 @@
+app_identifier("no.bluewhale.medium") # The bundle identifier of your app
+apple_id("ci@bluewhale.no") # Your Apple email address
+team_id("9PFDQS8C8D") # Apple Developer Team ID
