@@ -1,4 +1,4 @@
-package com.example.medium_ci_cd
+package no.bluewhale.medium
 
 import android.os.Bundle
 
